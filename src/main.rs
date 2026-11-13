@@ -112,19 +112,25 @@ impl eframe::App for KeyboardApp {
         }
 
         if self.running && response.has_focus() {
+            let ctrl = ui.input(|i| i.modifiers.ctrl);
+            let shift = ui.input(|i| i.modifiers.shift);
+
             for event in events {
                 if let egui::Event::Key {
                     key,
-                    pressed,
+                    pressed: true,
                     repeat,
                     ..
                 } = event
                 {
-                    let kind = if pressed { "Нажатие" } else { "Отпускание" };
-
-                    self.record(format!(
-                        "Клавиша: {key:?} | Событие: {kind} | Повтор: {repeat}"
-                    ));
+                    if key == egui::Key::Q && ctrl && shift {
+                        self.message = "Комбинация Ctrl + Shift + Q обнаружена".to_string();
+                        self.record("Комбинация Ctrl + Shift + Q обнаружена".to_string());
+                    } else {
+                        self.record(format!(
+                            "Клавиша: {key:?} | Событие: Нажатие | Повтор: {repeat}"
+                        ));
+                    }
                 }
             }
         }
