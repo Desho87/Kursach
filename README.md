@@ -128,3 +128,11 @@ keyboard\_interceptor\_rust/
 
 Курсовой проект, вариант №11.
 
+
+## Скриншот программы
+
+
+
+!\[Keyboard Interceptor](screenshot.png)
+
+
